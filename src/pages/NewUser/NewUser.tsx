@@ -1,10 +1,10 @@
-import * as Styled from "./styles";
-import { HiOutlineArrowLeft } from "react-icons/hi";
 import { IconButton } from "~/components/Buttons/IconButton";
+import * as Styled from "./styles";
 import { useHistory } from "react-router-dom";
 import routes from "~/router/routes";
-import { Button } from "~/components/Buttons/styles";
+import { HiOutlineArrowLeft } from "react-icons/hi";
 import { TextField } from "~/components/TextField/TextField";
+import { Button } from "~/components/Buttons/Button";
 
 export const NewUser = () => {
   const history = useHistory();

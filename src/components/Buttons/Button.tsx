@@ -1,16 +1,14 @@
-import * as Styled from './styles'
+import * as Styled from "./styles";
 
 type Props = {
   small?: boolean;
+  bgcolor?: string;
+  color?: string;
 } & React.HTMLAttributes<HTMLButtonElement>;
 
-export const IconButton = ({small, ...props}: Props) => {
-  if(small){
-    return (
-      <Styled.ButtonSmall {...props} />
-    );
+export const Button = ({ small, bgcolor, color, ...props }: Props) => {
+  if (small) {
+    return <Styled.ButtonSmall bgcolor={bgcolor} color={color} {...props} />;
   }
-  return (
-    <Styled.Button {...props} />
-  );
+  return <Styled.Button {...props} />;
 };

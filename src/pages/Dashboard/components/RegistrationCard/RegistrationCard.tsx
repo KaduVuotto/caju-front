@@ -1,4 +1,4 @@
-import { Button } from "~/components/Buttons/styles";
+import { Button } from "~/components/Buttons/Button";
 import * as Styled from "./styles";
 import {
   HiOutlineMail,
