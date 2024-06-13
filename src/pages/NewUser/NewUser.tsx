@@ -6,8 +6,9 @@ import { IconButton } from "~/components/Buttons/IconButton";
 import { useHistory } from "react-router-dom";
 import routes from "~/router/routes";
 
-const NewUserPage = () => {
+export const NewUser = () => {
   const history = useHistory();
+  
   const goToHome = () => {
     history.push(routes.dashboard);
   };
@@ -27,5 +28,3 @@ const NewUserPage = () => {
     </Styled.Container>
   );
 };
-
-export default NewUserPage;

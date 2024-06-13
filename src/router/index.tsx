@@ -1,15 +1,15 @@
 import { HashRouter, Redirect, Route, Switch } from "react-router-dom";
 import routes from "./routes";
- import NewUserPage from "~/pages/NewUser";
-import { Dashboard } from "~/pages/Dashboard/Dashboard";
+ import { Dashboard } from "~/pages/Dashboard/Dashboard";
+import { NewUser } from "~/pages/NewUser/NewUser";
 
-const Router = () => {
+export const Router = () => {
   return (
     <div style={{ marginTop: 64 }}>
       <HashRouter>
         <Switch>
           <Route exact path={routes.dashboard} component={Dashboard} />
-          <Route exact path={routes.newUser} component={NewUserPage} />
+          <Route exact path={routes.newUser} component={NewUser} />
           <Route
             exact
             path={routes.history}
@@ -24,5 +24,3 @@ const Router = () => {
     </div>
   );
 };
-
-export default Router;
