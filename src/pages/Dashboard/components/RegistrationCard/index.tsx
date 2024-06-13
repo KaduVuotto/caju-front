@@ -1,5 +1,5 @@
 import { ButtonSmall } from "~/components/Buttons";
-import * as S from "./styles";
+import * as Styled from "./styles";
 import {
   HiOutlineMail,
   HiOutlineUser,
@@ -13,27 +13,27 @@ type Props = {
 
 const RegistrationCard = (props: Props) => {
   return (
-    <S.Card>
-      <S.IconAndText>
+    <Styled.Card>
+      <Styled.IconAndText>
         <HiOutlineUser />
         <h3>{props.data.employeeName}</h3>
-      </S.IconAndText>
-      <S.IconAndText>
+      </Styled.IconAndText>
+      <Styled.IconAndText>
         <HiOutlineMail />
         <p>{props.data.email}</p>
-      </S.IconAndText>
-      <S.IconAndText>
+      </Styled.IconAndText>
+      <Styled.IconAndText>
         <HiOutlineCalendar />
         <span>{props.data.admissionDate}</span>
-      </S.IconAndText>
-      <S.Actions>
+      </Styled.IconAndText>
+      <Styled.Actions>
         <ButtonSmall bgcolor="rgb(255, 145, 154)" >Reprovar</ButtonSmall>
         <ButtonSmall bgcolor="rgb(155, 229, 155)">Aprovar</ButtonSmall>
         <ButtonSmall bgcolor="#ff8858">Revisar novamente</ButtonSmall>
 
         <HiOutlineTrash />
-      </S.Actions>
-    </S.Card>
+      </Styled.Actions>
+    </Styled.Card>
   );
 };
 

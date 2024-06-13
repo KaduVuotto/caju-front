@@ -1,12 +1,12 @@
 import Collumns from "./components/Columns";
-import * as S from "./styles";
+import * as Styled from "./styles";
 import { SearchBar } from "./components/Searchbar";
 
  export const Dashboard = () => {
   return (
-    <S.Container>
+    <Styled.Container>
       <SearchBar />
       <Collumns registrations={[]} />
-    </S.Container>
+    </Styled.Container>
   );
 };

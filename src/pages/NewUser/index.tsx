@@ -1,5 +1,5 @@
 import TextField from "~/components/TextField";
-import * as S from "./styles";
+import * as Styled from "./styles";
 import Button from "~/components/Buttons";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 import { IconButton } from "~/components/Buttons/IconButton";
@@ -13,8 +13,8 @@ const NewUserPage = () => {
   };
 
   return (
-    <S.Container>
-      <S.Card>
+    <Styled.Container>
+      <Styled.Card>
         <IconButton onClick={() => goToHome()} aria-label="back">
           <HiOutlineArrowLeft size={24} />
         </IconButton>
@@ -23,8 +23,8 @@ const NewUserPage = () => {
         <TextField placeholder="CPF" label="CPF" />
         <TextField label="Data de admissão" type="date" />
         <Button onClick={() => {}}>Cadastrar</Button>
-      </S.Card>
-    </S.Container>
+      </Styled.Card>
+    </Styled.Container>
   );
 };
 

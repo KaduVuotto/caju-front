@@ -1,5 +1,5 @@
 
-import * as S from "./styles";
+import * as Styled from "./styles";
 import RegistrationCard from "../RegistrationCard";
 
 const allColumns = [
@@ -13,15 +13,15 @@ type Props = {
 };
 const Collumns = (props: Props) => {
   return (
-    <S.Container>
+    <Styled.Container>
       {allColumns.map((collum) => {
         return (
-          <S.Column status={collum.status} key={collum.title}>
+          <Styled.Column status={collum.status} key={collum.title}>
             <>
-              <S.TitleColumn status={collum.status}>
+              <Styled.TitleColumn status={collum.status}>
                 {collum.title}
-              </S.TitleColumn>
-              <S.CollumContent>
+              </Styled.TitleColumn>
+              <Styled.CollumContent>
                 {props?.registrations?.map((registration) => {
                   return (
                     <RegistrationCard
@@ -30,12 +30,12 @@ const Collumns = (props: Props) => {
                     />
                   );
                 })}
-              </S.CollumContent>
+              </Styled.CollumContent>
             </>
-          </S.Column>
+          </Styled.Column>
         );
       })}
-    </S.Container>
+    </Styled.Container>
   );
 };
 export default Collumns;

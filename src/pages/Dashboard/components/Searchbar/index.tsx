@@ -4,7 +4,7 @@ import Button from "~/components/Buttons";
 import { IconButton } from "~/components/Buttons/IconButton";
 import TextField from "~/components/TextField";
 import routes from "~/router/routes";
-import * as S from "./styles";
+import * as Styled from "./styles";
 export const SearchBar = () => {
   const history = useHistory();
 
@@ -13,14 +13,14 @@ export const SearchBar = () => {
   };
   
   return (
-    <S.Container>
+    <Styled.Container>
       <TextField  placeholder="Digite um CPF válido" />
-      <S.Actions>
+      <Styled.Actions>
         <IconButton aria-label="refetch">
           <HiRefresh />
         </IconButton>
         <Button onClick={() => goToNewAdmissionPage()}>Nova Admissão</Button>
-      </S.Actions>
-    </S.Container>
+      </Styled.Actions>
+    </Styled.Container>
   );
 };
