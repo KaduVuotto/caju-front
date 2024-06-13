@@ -1,10 +1,10 @@
 import TextField from "~/components/TextField";
 import * as Styled from "./styles";
-import Button from "~/components/Buttons";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 import { IconButton } from "~/components/Buttons/IconButton";
 import { useHistory } from "react-router-dom";
 import routes from "~/router/routes";
+import { Button } from "~/components/Buttons/styles";
 
 export const NewUser = () => {
   const history = useHistory();

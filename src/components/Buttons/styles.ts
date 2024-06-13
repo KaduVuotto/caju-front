@@ -1,6 +1,21 @@
 import styled from "styled-components";
 
-const Button = styled.button`
+export const IconButton = styled.button`
+  cursor: pointer;
+  border: 2px solid #64a98c;
+  width: fit-content;
+  padding: 4px;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  svg {
+    color: #64a98c;
+  }
+`;
+
+export const Button = styled.button`
   outline: none;
   display: flex;
   align-items: center;
@@ -29,6 +44,3 @@ export const ButtonSmall = styled.button<{
   color: ${(props) => props.color ?? "#000"};
   cursor: pointer;
 `;
-
-
-export default Button;
