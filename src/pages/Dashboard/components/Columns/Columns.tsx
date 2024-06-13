@@ -1,6 +1,6 @@
 
 import * as Styled from "./styles";
-import RegistrationCard from "../RegistrationCard";
+import {RegistrationCard} from "../RegistrationCard/RegistrationCard";
 
 const allColumns = [
   { status: 'REVIEW', title: "Pronto para revisar" },

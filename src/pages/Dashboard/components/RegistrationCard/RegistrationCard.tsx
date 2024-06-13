@@ -11,20 +11,20 @@ type Props = {
   data: any;
 };
 
-const RegistrationCard = (props: Props) => {
+export const RegistrationCard = ({data}: Props) => {
   return (
     <Styled.Card>
       <Styled.IconAndText>
         <HiOutlineUser />
-        <h3>{props.data.employeeName}</h3>
+        <h3>{data.employeeName}</h3>
       </Styled.IconAndText>
       <Styled.IconAndText>
         <HiOutlineMail />
-        <p>{props.data.email}</p>
+        <p>{data.email}</p>
       </Styled.IconAndText>
       <Styled.IconAndText>
         <HiOutlineCalendar />
-        <span>{props.data.admissionDate}</span>
+        <span>{data.admissionDate}</span>
       </Styled.IconAndText>
       <Styled.Actions>
         <ButtonSmall bgcolor="rgb(255, 145, 154)" >Reprovar</ButtonSmall>
@@ -36,5 +36,3 @@ const RegistrationCard = (props: Props) => {
     </Styled.Card>
   );
 };
-
-export default RegistrationCard;
