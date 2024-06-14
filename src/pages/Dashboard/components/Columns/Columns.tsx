@@ -1,22 +1,12 @@
 import * as Styled from "./styles";
 import { RegistrationCard } from "../RegistrationCard/RegistrationCard";
+import { DataListItem } from "~/types/interface";
 
 const allColumns = [
   { status: "REVIEW", title: "Pronto para revisar" },
   { status: "APPROVED", title: "Aprovado" },
   { status: "REPROVED", title: "Reprovado" },
 ];
-
-type Status = "APPROVED" | "REVIEW" | "REPROVED";
-
-export interface DataListItem {
-  admissionDate: string;
-  email: string;
-  employeeName: string;
-  status: Status;
-  cpf: string;
-  id: string;
-}
 
 type Props = {
   registrations?: DataListItem[];

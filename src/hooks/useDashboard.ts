@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { DataListItem } from "~/pages/Dashboard/components/Columns/Columns";
 import { getAllAdmissions } from "~/services/getAllAdmissions";
+import { DataListItem } from "~/types/interface";
 
 export const useDashboard = () => {
   const [dataList, setDataList] = useState<DataListItem[]>([]);

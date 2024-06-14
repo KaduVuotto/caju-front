@@ -6,9 +6,10 @@ import {
   HiOutlineCalendar,
   HiOutlineTrash,
 } from "react-icons/hi";
+import { DataListItem } from "~/types/interface";
 
 type Props = {
-  data: any;
+  data: DataListItem;
 };
 
 export const RegistrationCard = ({data}: Props) => {
@@ -30,7 +31,6 @@ export const RegistrationCard = ({data}: Props) => {
         <Button small bgcolor="rgb(255, 145, 154)" >Reprovar</Button>
         <Button small bgcolor="rgb(155, 229, 155)">Aprovar</Button>
         <Button small bgcolor="#ff8858">Revisar novamente</Button>
-
         <HiOutlineTrash />
       </Styled.Actions>
     </Styled.Card>
