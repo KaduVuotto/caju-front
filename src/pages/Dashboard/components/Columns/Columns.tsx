@@ -1,18 +1,28 @@
-
 import * as Styled from "./styles";
-import {RegistrationCard} from "../RegistrationCard/RegistrationCard";
+import { RegistrationCard } from "../RegistrationCard/RegistrationCard";
 
 const allColumns = [
-  { status: 'REVIEW', title: "Pronto para revisar" },
-  { status: 'APPROVED', title: "Aprovado" },
-  { status: 'REPROVED', title: "Reprovado" },
+  { status: "REVIEW", title: "Pronto para revisar" },
+  { status: "APPROVED", title: "Aprovado" },
+  { status: "REPROVED", title: "Reprovado" },
 ];
 
+type Status = "APPROVED" | "REVIEW" | "REPROVED";
+
+export interface DataListItem {
+  admissionDate: string;
+  email: string;
+  employeeName: string;
+  status: Status;
+  cpf: string;
+  id: string;
+}
+
 type Props = {
-  registrations?: any[];
+  registrations?: DataListItem[];
 };
 
-export const Columns = ({registrations}: Props) => {
+export const Columns = ({ registrations }: Props) => {
   return (
     <Styled.Container>
       {allColumns.map((collum) => {
@@ -24,12 +34,15 @@ export const Columns = ({registrations}: Props) => {
               </Styled.TitleColumn>
               <Styled.CollumContent>
                 {registrations?.map((registration) => {
-                  return (
-                    <RegistrationCard
-                      data={registration}
-                      key={registration.id}
-                    />
-                  );
+                  if (collum.status === registration.status) {
+                    return (
+                      <RegistrationCard
+                        data={registration}
+                        key={registration.id}
+                      />
+                    );
+                  }
+                  return <></>;
                 })}
               </Styled.CollumContent>
             </>
