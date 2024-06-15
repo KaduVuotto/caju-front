@@ -15,24 +15,24 @@ type Props = {
 export const Columns = ({ registrations }: Props) => {
   return (
     <Styled.Container>
-      {allColumns.map((collum) => {
+      {allColumns.map((collum, index) => {
         return (
-          <Styled.Column status={collum.status} key={collum.title}>
+          <Styled.Column status={collum.status} key={index}>
             <>
               <Styled.TitleColumn status={collum.status}>
                 {collum.title}
               </Styled.TitleColumn>
               <Styled.CollumContent>
-                {registrations?.map((registration) => {
+                {registrations?.map((registration, index) => {
                   if (collum.status === registration.status) {
                     return (
                       <RegistrationCard
-                        data={registration}
+                        item={registration}
                         key={registration.id}
                       />
                     );
                   }
-                  return <></>;
+                  return <div key={index}></div>;
                 })}
               </Styled.CollumContent>
             </>
