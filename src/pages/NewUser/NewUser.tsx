@@ -5,10 +5,11 @@ import routes from "~/router/routes";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 import { TextField } from "~/components/TextField/TextField";
 import { Button } from "~/components/Buttons/Button";
+import * as React from "react";
 
-export const NewUser = () => {
+export const NewUser = React.memo(() => {
   const history = useHistory();
-  
+
   const goToHome = () => {
     history.push(routes.dashboard);
   };
@@ -27,4 +28,4 @@ export const NewUser = () => {
       </Styled.Card>
     </Styled.Container>
   );
-};
+});

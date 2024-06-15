@@ -5,17 +5,18 @@ import routes from "~/router/routes";
 import * as Styled from "./styles";
 import { Button } from "~/components/Buttons/styles";
 import { TextField } from "~/components/TextField/TextField";
+import * as React from "react";
 
-export const SearchBar = () => {
+export const SearchBar = React.memo(() => {
   const history = useHistory();
 
   const goToNewAdmissionPage = () => {
     history.push(routes.newUser);
   };
-  
+
   return (
     <Styled.Container>
-      <TextField  placeholder="Digite um CPF válido" />
+      <TextField placeholder="Digite um CPF válido" />
       <Styled.Actions>
         <IconButton aria-label="refetch">
           <HiRefresh />
@@ -24,4 +25,4 @@ export const SearchBar = () => {
       </Styled.Actions>
     </Styled.Container>
   );
-};
+});

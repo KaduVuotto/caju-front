@@ -8,12 +8,13 @@ import {
 import { DataListItem } from "~/types/interface";
 import { RegistrationStatus } from "~/types/emuns";
 import { useDashboard } from "~/hooks/useDashboard";
+import * as React from "react";
 
 type Props = {
   item: DataListItem;
 };
 
-export const RegistrationCard = ({ item }: Props) => {
+export const RegistrationCard = React.memo(({ item }: Props) => {
   const { changeStatus, loading, error } = useDashboard();
 
   if (loading) {
@@ -74,4 +75,4 @@ export const RegistrationCard = ({ item }: Props) => {
       {error && <p style={{ color: "red" }}>{error}</p>}
     </Styled.Card>
   );
-};
+});

@@ -1,5 +1,6 @@
 import { InputHTMLAttributes } from "react";
 import * as Styled from "./styles";
+import * as React from "react";
 
 type Props = {
   label?: string;
@@ -7,7 +8,7 @@ type Props = {
   id?: string;
 } & InputHTMLAttributes<any>;
 
-export const TextField = ({id, label, error, ...props}: Props) => {
+export const TextField = React.memo(({ id, label, error, ...props }: Props) => {
   return (
     <div>
       <label htmlFor={id}>{label}</label>
@@ -15,4 +16,4 @@ export const TextField = ({id, label, error, ...props}: Props) => {
       <Styled.Span>{error}</Styled.Span>
     </div>
   );
-};
+});
