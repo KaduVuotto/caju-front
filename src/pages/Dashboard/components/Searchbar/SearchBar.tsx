@@ -5,9 +5,9 @@ import routes from "~/router/routes";
 import * as Styled from "./styles";
 import { Button } from "~/components/Buttons/styles";
 import { TextField } from "~/components/TextField/TextField";
-import * as React from "react";
+import { memo } from "react";
 
-export const SearchBar = React.memo(() => {
+export const SearchBar = memo(() => {
   const history = useHistory();
 
   const goToNewAdmissionPage = () => {

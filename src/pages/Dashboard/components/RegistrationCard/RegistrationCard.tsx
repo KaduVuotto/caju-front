@@ -8,13 +8,13 @@ import {
 import { DataListItem } from "~/types/interface";
 import { RegistrationStatus } from "~/types/emuns";
 import { useDashboard } from "~/hooks/useDashboard";
-import * as React from "react";
+import { memo } from "react";
 
 type Props = {
   item: DataListItem;
 };
 
-export const RegistrationCard = React.memo(({ item }: Props) => {
+export const RegistrationCard = memo(({ item }: Props) => {
   const { changeStatus, loading, error } = useDashboard();
 
   if (loading) {

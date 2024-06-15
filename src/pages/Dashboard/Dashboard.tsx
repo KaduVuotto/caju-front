@@ -2,9 +2,9 @@ import * as Styled from "./styles";
 import { SearchBar } from "./components/SearchBar/SearchBar";
 import { Columns } from "./components/Columns/Columns";
 import { useDashboard } from "~/hooks/useDashboard";
-import * as React from "react";
+import { memo } from "react";
 
-export const Dashboard = React.memo(() => {
+export const Dashboard = memo(() => {
   const { dataList } = useDashboard();
 
   return (

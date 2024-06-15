@@ -1,7 +1,7 @@
 import * as Styled from "./styles";
 import { RegistrationCard } from "../RegistrationCard/RegistrationCard";
 import { DataListItem } from "~/types/interface";
-import * as React from "react";
+import { memo } from "react";
 
 const allColumns = [
   { status: "REVIEW", title: "Pronto para revisar" },
@@ -13,7 +13,7 @@ type Props = {
   registrations?: DataListItem[];
 };
 
-export const Columns = React.memo(({ registrations }: Props) => {
+export const Columns = memo(({ registrations }: Props) => {
   return (
     <Styled.Container>
       {allColumns.map((collum, index) => {

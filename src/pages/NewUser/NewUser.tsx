@@ -5,9 +5,9 @@ import routes from "~/router/routes";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 import { TextField } from "~/components/TextField/TextField";
 import { Button } from "~/components/Buttons/Button";
-import * as React from "react";
+import { memo } from "react";
 
-export const NewUser = React.memo(() => {
+export const NewUser = memo(() => {
   const history = useHistory();
 
   const goToHome = () => {
