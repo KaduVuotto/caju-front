@@ -4,35 +4,74 @@ import {
   HiOutlineMail,
   HiOutlineUser,
   HiOutlineCalendar,
-  HiOutlineTrash,
 } from "react-icons/hi";
 import { DataListItem } from "~/types/interface";
+import { RegistrationStatus } from "~/types/emuns";
+import { useDashboard } from "~/hooks/useDashboard";
 
 type Props = {
-  data: DataListItem;
+  item: DataListItem;
 };
 
-export const RegistrationCard = ({data}: Props) => {
+export const RegistrationCard = ({ item }: Props) => {
+  const { changeStatus, loading, error } = useDashboard();
+
+  if (loading) {
+    return <Styled.Card>Carregando...</Styled.Card>;
+  }
   return (
     <Styled.Card>
       <Styled.IconAndText>
         <HiOutlineUser />
-        <h3>{data.employeeName}</h3>
+        <h3>{item.employeeName}</h3>
       </Styled.IconAndText>
       <Styled.IconAndText>
         <HiOutlineMail />
-        <p>{data.email}</p>
+        <p>{item.email}</p>
       </Styled.IconAndText>
       <Styled.IconAndText>
         <HiOutlineCalendar />
-        <span>{data.admissionDate}</span>
+        <span>{item.admissionDate}</span>
       </Styled.IconAndText>
       <Styled.Actions>
-        <Button small bgcolor="rgb(255, 145, 154)" >Reprovar</Button>
-        <Button small bgcolor="rgb(155, 229, 155)">Aprovar</Button>
-        <Button small bgcolor="#ff8858">Revisar novamente</Button>
-        <HiOutlineTrash />
+        {item.status !== RegistrationStatus.REVIEW && (
+          <Button
+            onClick={() => {
+              changeStatus(item, RegistrationStatus.REVIEW);
+            }}
+            small
+            bgcolor="#ff8858"
+          >
+            Revisar novamente
+          </Button>
+        )}
+        {item.status !== RegistrationStatus.APPROVED && (
+          <Button
+            onClick={() => changeStatus(item, RegistrationStatus.APPROVED)}
+            small
+            bgcolor="rgb(155, 229, 155)"
+          >
+            Aprovar
+          </Button>
+        )}
+        {item.status !== RegistrationStatus.REPROVED && (
+          <Button
+            onClick={() => changeStatus(item, RegistrationStatus.REPROVED)}
+            small
+            bgcolor="rgb(255, 145, 154)"
+          >
+            Reprovar
+          </Button>
+        )}
+        <Button
+          onClick={() => changeStatus(item, RegistrationStatus.REVIEW)}
+          small
+          bgcolor="rgb(255, 145, 154)"
+        >
+          Excluir
+        </Button>
       </Styled.Actions>
+      {error && <p style={{ color: "red" }}>{error}</p>}
     </Styled.Card>
   );
 };
