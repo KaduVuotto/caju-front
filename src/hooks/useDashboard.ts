@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import routes from "~/router/routes";
 import { deleteAdmission } from "~/services/deleteAdmission";
 import { getAllAdmissions } from "~/services/getAllAdmissions";
 import { updateStatus } from "~/services/updateStatus";
@@ -14,6 +16,12 @@ export const useDashboard = () => {
   const [loadingScreen, setLoadingScreen] = useState<boolean>(false);
   const [errorRegistrations, setErrorRegistrations] = useState<string>("");
   const [errorScreen, setErrorScreen] = useState<string>("");
+
+  const history = useHistory();
+
+  const goToNewAdmissionPage = () => {
+    history.push(routes.newUser);
+  };
 
   const refresh = useCallback(async () => {
     setLoadingScreen(true);
@@ -72,5 +80,6 @@ export const useDashboard = () => {
     loadingScreen,
     errorScreen,
     deleteCard,
+    goToNewAdmissionPage
   };
 };
