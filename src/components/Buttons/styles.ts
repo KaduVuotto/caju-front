@@ -1,8 +1,10 @@
 import styled from "styled-components";
 
-export const IconButton = styled.button`
+export const IconButton = styled.button<{
+  disabled?: boolean;
+}>`
   cursor: pointer;
-  border: 2px solid #64a98c;
+  border: 2px solid ${(props) => (props.disabled ? "gray" : "#64a98c")};
   width: fit-content;
   padding: 4px;
   border-radius: 24px;
@@ -11,18 +13,20 @@ export const IconButton = styled.button`
   justify-content: center;
   background-color: transparent;
   svg {
-    color: #64a98c;
+    color: ${(props) => (props.disabled ? "gray" : "#64a98c")};
   }
 `;
 
-export const Button = styled.button`
+export const Button = styled.button<{
+  disabled?: boolean;
+}>`
   outline: none;
   display: flex;
   align-items: center;
   border: none;
   border-radius: 36px;
   padding: 8px 32px;
-  background-color: #64a98c;
+  background-color: ${(props) => (props.disabled ? "gray" : "#64a98c")};
   cursor: pointer;
   height: 56px;
   color: #fff;
@@ -40,7 +44,8 @@ export const ButtonSmall = styled.button<{
   border-radius: 4px;
   border: none;
   padding: 4px 16px;
-  background-color: ${(props) => props.bgcolor ?? 'none'};
-  color: ${(props) => props.color ?? "#000"};
+  background-color: ${(props) =>
+    props.disabled ? "gray" : props.bgcolor ?? "none"};
+  color: ${(props) => (props.disabled ? "gray" : props.color ?? "#000")};
   cursor: pointer;
 `;
