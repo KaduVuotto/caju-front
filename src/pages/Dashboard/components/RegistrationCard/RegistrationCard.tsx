@@ -5,74 +5,98 @@ import {
   HiOutlineUser,
   HiOutlineCalendar,
 } from "react-icons/hi";
-import { DataListItem } from "~/types/interface";
+import { DataRegistrationsItem } from "~/types/interface";
 import { RegistrationStatus } from "~/types/emuns";
-import { useDashboard } from "~/hooks/useDashboard";
 import { memo } from "react";
+import { Skeleton, Typography } from "@mui/material";
 
 type Props = {
-  item: DataListItem;
+  item: DataRegistrationsItem;
+  changeStatus: (
+    item: DataRegistrationsItem,
+    newStatus: string
+  ) => Promise<void>;
+  loadingRegistrations: boolean;
+  loadingScreen: boolean;
+  errorRegistrations: string;
 };
 
-export const RegistrationCard = memo(({ item }: Props) => {
-  const { changeStatus, loading, error } = useDashboard();
+export const RegistrationCard = memo(
+  ({
+    item,
+    changeStatus,
+    errorRegistrations,
+    loadingRegistrations,
+    loadingScreen,
+  }: Props) => {
+    const loading = loadingRegistrations || loadingScreen;
 
-  if (loading) {
-    return <Styled.Card>Carregando...</Styled.Card>;
-  }
-  return (
-    <Styled.Card>
-      <Styled.IconAndText>
-        <HiOutlineUser />
-        <h3>{item.employeeName}</h3>
-      </Styled.IconAndText>
-      <Styled.IconAndText>
-        <HiOutlineMail />
-        <p>{item.email}</p>
-      </Styled.IconAndText>
-      <Styled.IconAndText>
-        <HiOutlineCalendar />
-        <span>{item.admissionDate}</span>
-      </Styled.IconAndText>
-      <Styled.Actions>
-        {item.status !== RegistrationStatus.REVIEW && (
+    return (
+      <Styled.Card>
+        <Styled.IconAndText>
+          {loading ? null : <HiOutlineUser />}
+          <Typography variant="h5">
+            {loading ? <Skeleton width={"20vw"} /> : `${item.employeeName}`}
+          </Typography>
+        </Styled.IconAndText>
+        <Styled.IconAndText>
+          {loading ? null : <HiOutlineMail />}
+          <Typography variant="body1">
+            {loading ? <Skeleton width={"20vw"} /> : `${item.email}`}
+          </Typography>
+        </Styled.IconAndText>
+        <Styled.IconAndText>
+          {loading ? null : <HiOutlineCalendar />}
+          <Typography variant="body1">
+            {loading ? <Skeleton width={"20vw"} /> : `${item.admissionDate}`}
+          </Typography>
+        </Styled.IconAndText>
+        <Styled.Actions>
+          {item.status !== RegistrationStatus.REVIEW && (
+            <Button
+              loading={loading}
+              onClick={() => {
+                changeStatus(item, RegistrationStatus.REVIEW);
+              }}
+              small
+              bgcolor="#ff8858"
+            >
+              Revisar novamente
+            </Button>
+          )}
+          {item.status !== RegistrationStatus.APPROVED && (
+            <Button
+              loading={loading}
+              onClick={() => changeStatus(item, RegistrationStatus.APPROVED)}
+              small
+              bgcolor="rgb(155, 229, 155)"
+            >
+              Aprovar
+            </Button>
+          )}
+          {item.status !== RegistrationStatus.REPROVED && (
+            <Button
+              loading={loading}
+              onClick={() => changeStatus(item, RegistrationStatus.REPROVED)}
+              small
+              bgcolor="rgb(255, 145, 154)"
+            >
+              Reprovar
+            </Button>
+          )}
           <Button
-            onClick={() => {
-              changeStatus(item, RegistrationStatus.REVIEW);
-            }}
-            small
-            bgcolor="#ff8858"
-          >
-            Revisar novamente
-          </Button>
-        )}
-        {item.status !== RegistrationStatus.APPROVED && (
-          <Button
-            onClick={() => changeStatus(item, RegistrationStatus.APPROVED)}
-            small
-            bgcolor="rgb(155, 229, 155)"
-          >
-            Aprovar
-          </Button>
-        )}
-        {item.status !== RegistrationStatus.REPROVED && (
-          <Button
-            onClick={() => changeStatus(item, RegistrationStatus.REPROVED)}
+            loading={loading}
+            onClick={() => changeStatus(item, RegistrationStatus.REVIEW)}
             small
             bgcolor="rgb(255, 145, 154)"
           >
-            Reprovar
+            Excluir
           </Button>
+        </Styled.Actions>
+        {errorRegistrations && (
+          <p style={{ color: "red" }}>{errorRegistrations}</p>
         )}
-        <Button
-          onClick={() => changeStatus(item, RegistrationStatus.REVIEW)}
-          small
-          bgcolor="rgb(255, 145, 154)"
-        >
-          Excluir
-        </Button>
-      </Styled.Actions>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </Styled.Card>
-  );
-});
+      </Styled.Card>
+    );
+  }
+);

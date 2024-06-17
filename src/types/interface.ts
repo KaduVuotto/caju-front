@@ -1,6 +1,6 @@
 import { Status } from "./types";
 
-export interface DataListItem {
+export interface DataRegistrationsItem {
     admissionDate: string;
     email: string;
     employeeName: string;

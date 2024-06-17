@@ -1,19 +1,59 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getAllAdmissions } from "~/services/getAllAdmissions";
-import { DataListItem } from "~/types/interface";
+import { updateStatus } from "~/services/updateStatus";
+import { DataRegistrationsItem } from "~/types/interface";
+import { initialStateRegistration } from "~/utils/initialStateRegistration";
 
 export const useDashboard = () => {
-  const [dataList, setDataList] = useState<DataListItem[]>([]);
+  const [dataRegistrations, setDataRegistrations] = useState<DataRegistrationsItem[]>(
+    initialStateRegistration
+  );
+  const [loadingRegistrations, setLoadingRegistrations] =
+    useState<boolean>(false);
+  const [loadingScreen, setLoadingScreen] = useState<boolean>(false);
+  const [errorRegistrations, setErrorRegistrations] = useState<string>("");
 
-  const refresh = async () => {
-    const data = await getAllAdmissions();
-    setDataList(data);
-  };
+  const refresh = useCallback(async () => {
+    setLoadingScreen(true);
+    try {
+      const data = await getAllAdmissions();
+      setDataRegistrations(data);
+    } catch (err) {
+      setErrorRegistrations("Falha ao buscar admissões, tente novamente!");
+    } finally {
+      setLoadingScreen(false);
+    }
+  }, []);
+
+  const changeStatus = useCallback(
+    async (item: DataRegistrationsItem, newStatus: string) => {
+      setLoadingRegistrations(true);
+      try {
+        const response = await updateStatus(item, newStatus);
+        setDataRegistrations((prevState) =>
+          prevState.map((itemList) =>
+            itemList.id === item.id ? { ...response } : itemList
+          )
+        );
+      } catch (err) {
+        setErrorRegistrations("Falha ao atualizar o status, tente novamente!");
+      } finally {
+        setLoadingRegistrations(false);
+      }
+    },
+    []
+  );
 
   useEffect(() => {
     refresh();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return {dataList};
+  return {
+    dataRegistrations,
+    loadingRegistrations,
+    errorRegistrations,
+    changeStatus,
+    refresh,
+    loadingScreen,
+  };
 };

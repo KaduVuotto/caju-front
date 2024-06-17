@@ -5,12 +5,24 @@ import { useDashboard } from "~/hooks/useDashboard";
 import { memo } from "react";
 
 export const Dashboard = memo(() => {
-  const { dataList } = useDashboard();
+  const {
+    dataRegistrations,
+    changeStatus,
+    loadingRegistrations,
+    errorRegistrations,
+    loadingScreen,
+  } = useDashboard();
 
   return (
     <Styled.Container>
       <SearchBar />
-      <Columns registrations={dataList} />
+      <Columns
+        registrations={dataRegistrations}
+        changeStatus={changeStatus}
+        loadingRegistrations={loadingRegistrations}
+        loadingScreen={loadingScreen}
+        errorRegistrations={errorRegistrations}
+      />
     </Styled.Container>
   );
 });

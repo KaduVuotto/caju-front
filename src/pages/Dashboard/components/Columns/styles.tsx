@@ -28,7 +28,7 @@ export const Container = styled.div`
 export const Column = styled.div<{ status: Status }>`
   height: auto;
   background-color: ${({ status }) =>
-    registrationStatusStyles[status].background ?? 'none'};
+    registrationStatusStyles[status].background ?? "none"};
   border-radius: 32px;
   min-height: 80vh;
   max-height: 80vh;
@@ -36,7 +36,7 @@ export const Column = styled.div<{ status: Status }>`
 
 export const TitleColumn = styled.h3<{ status: Status }>`
   margin: 0px;
-  color: ${({ status }) => registrationStatusStyles[status].title ?? '#000'};
+  color: ${({ status }) => registrationStatusStyles[status].title ?? "#000"};
   margin: 24px;
 `;
 
