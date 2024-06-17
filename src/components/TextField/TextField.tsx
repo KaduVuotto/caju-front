@@ -3,17 +3,23 @@ import * as Styled from "./styles";
 import { memo } from "react";
 
 type Props = {
-  label?: string;
-  error?: string;
-  id?: string;
-} & InputHTMLAttributes<any>;
+  error: string;
+  value: string | number | readonly string[] | undefined;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+} & InputHTMLAttributes<HTMLInputElement>;
 
-export const TextField = memo(({ id, label, error, ...props }: Props) => {
-  return (
-    <div>
-      <label htmlFor={id}>{label}</label>
-      <Styled.Input {...props} />
-      <Styled.Span>{error}</Styled.Span>
-    </div>
-  );
-});
+export const TextField = memo(
+  ({ error, value, onChange, ...props }: Props) => {
+    return (
+      <div>
+        <Styled.Input
+          mask="999.999.999-99"
+          value={value}
+          onChange={onChange}
+          {...props}
+        />
+        <Styled.Span>{error}</Styled.Span>
+      </div>
+    );
+  }
+);
