@@ -12,10 +12,14 @@ const allColumns = [
 
 type Props = {
   registrations: DataRegistrationsItem[];
-  changeStatus: (item: DataRegistrationsItem, newStatus: string) => Promise<void>;
+  changeStatus: (
+    item: DataRegistrationsItem,
+    newStatus: string
+  ) => Promise<void>;
   loadingRegistrations: boolean;
   loadingScreen: boolean;
   errorRegistrations: string;
+  deleteCard: (item: DataRegistrationsItem) => Promise<void>;
 };
 
 export const Columns = memo(
@@ -25,8 +29,8 @@ export const Columns = memo(
     errorRegistrations,
     loadingRegistrations,
     loadingScreen,
-  }: 
-  Props) => {
+    deleteCard,
+  }: Props) => {
     return (
       <Styled.Container>
         {allColumns.map((collum, index) => {
@@ -45,11 +49,11 @@ export const Columns = memo(
                       return (
                         <RegistrationCard
                           item={registration}
-                          key={registration.id}
+                          key={index}
                           changeStatus={changeStatus}
+                          deleteCard={deleteCard}
                           errorRegistrations={errorRegistrations}
-                          loadingRegistrations={loadingRegistrations}
-                          loadingScreen={loadingScreen}
+                          loadingRegistrations={loadingRegistrations || loadingScreen}
                         />
                       );
                     }

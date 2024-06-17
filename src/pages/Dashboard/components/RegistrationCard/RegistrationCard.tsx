@@ -17,8 +17,8 @@ type Props = {
     newStatus: string
   ) => Promise<void>;
   loadingRegistrations: boolean;
-  loadingScreen: boolean;
   errorRegistrations: string;
+  deleteCard: (item: DataRegistrationsItem) => Promise<void>;
 };
 
 export const RegistrationCard = memo(
@@ -27,34 +27,53 @@ export const RegistrationCard = memo(
     changeStatus,
     errorRegistrations,
     loadingRegistrations,
-    loadingScreen,
+    deleteCard,
   }: Props) => {
-    const loading = loadingRegistrations || loadingScreen;
+    if (loadingRegistrations || item.id === "") {
+      return (
+        <Styled.Card>
+          <Styled.IconAndText>
+            <Typography variant="h5">
+              <Skeleton width={"20vw"} />
+            </Typography>
+          </Styled.IconAndText>
+          <Styled.IconAndText>
+            <Typography variant="body1">
+              <Skeleton width={"20vw"} />
+            </Typography>
+          </Styled.IconAndText>
+          <Styled.IconAndText>
+            <Typography variant="body1">
+              <Skeleton width={"20vw"} />
+            </Typography>
+          </Styled.IconAndText>
+          <Styled.Actions>
+            <Button loading={loadingRegistrations} small />
+            <Button loading={loadingRegistrations} small />
+            <Button loading={loadingRegistrations} small />
+            <Button loading={loadingRegistrations} small />
+          </Styled.Actions>
+        </Styled.Card>
+      );
+    }
 
     return (
       <Styled.Card>
         <Styled.IconAndText>
-          {loading ? null : <HiOutlineUser />}
-          <Typography variant="h5">
-            {loading ? <Skeleton width={"20vw"} /> : `${item.employeeName}`}
-          </Typography>
+          <HiOutlineUser />
+          <Typography variant="h5">{item.employeeName}</Typography>
         </Styled.IconAndText>
         <Styled.IconAndText>
-          {loading ? null : <HiOutlineMail />}
-          <Typography variant="body1">
-            {loading ? <Skeleton width={"20vw"} /> : `${item.email}`}
-          </Typography>
+          <HiOutlineMail />
+          <Typography variant="body1">{item.email}</Typography>
         </Styled.IconAndText>
         <Styled.IconAndText>
-          {loading ? null : <HiOutlineCalendar />}
-          <Typography variant="body1">
-            {loading ? <Skeleton width={"20vw"} /> : `${item.admissionDate}`}
-          </Typography>
+          <HiOutlineCalendar />
+          <Typography variant="body1">{item.admissionDate}</Typography>
         </Styled.IconAndText>
         <Styled.Actions>
           {item.status !== RegistrationStatus.REVIEW && (
             <Button
-              loading={loading}
               onClick={() => {
                 changeStatus(item, RegistrationStatus.REVIEW);
               }}
@@ -66,7 +85,6 @@ export const RegistrationCard = memo(
           )}
           {item.status !== RegistrationStatus.APPROVED && (
             <Button
-              loading={loading}
               onClick={() => changeStatus(item, RegistrationStatus.APPROVED)}
               small
               bgcolor="rgb(155, 229, 155)"
@@ -76,7 +94,6 @@ export const RegistrationCard = memo(
           )}
           {item.status !== RegistrationStatus.REPROVED && (
             <Button
-              loading={loading}
               onClick={() => changeStatus(item, RegistrationStatus.REPROVED)}
               small
               bgcolor="rgb(255, 145, 154)"
@@ -85,8 +102,7 @@ export const RegistrationCard = memo(
             </Button>
           )}
           <Button
-            loading={loading}
-            onClick={() => changeStatus(item, RegistrationStatus.REVIEW)}
+            onClick={() => deleteCard(item)}
             small
             bgcolor="rgb(255, 145, 154)"
           >
@@ -94,7 +110,7 @@ export const RegistrationCard = memo(
           </Button>
         </Styled.Actions>
         {errorRegistrations && (
-          <p style={{ color: "red" }}>{errorRegistrations}</p>
+          <Typography variant="body1" color={"red"}>{errorRegistrations}</Typography>
         )}
       </Styled.Card>
     );

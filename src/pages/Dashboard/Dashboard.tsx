@@ -13,12 +13,13 @@ export const Dashboard = memo(() => {
     errorRegistrations,
     loadingScreen,
     errorScreen,
+    deleteCard,
   } = useDashboard();
 
   return (
     <Styled.Container>
       <SearchBar />
-      {true ? (
+      {errorScreen ? (
         <Styled.ErrorContainer>
           <Typography variant="body1">{errorScreen}</Typography>
         </Styled.ErrorContainer>
@@ -29,6 +30,7 @@ export const Dashboard = memo(() => {
           loadingRegistrations={loadingRegistrations}
           loadingScreen={loadingScreen}
           errorRegistrations={errorRegistrations}
+          deleteCard={deleteCard}
         />
       )}
     </Styled.Container>

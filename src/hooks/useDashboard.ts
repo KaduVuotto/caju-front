@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { deleteAdmission } from "~/services/deleteAdmission";
 import { getAllAdmissions } from "~/services/getAllAdmissions";
 import { updateStatus } from "~/services/updateStatus";
 import { DataRegistrationsItem } from "~/types/interface";
@@ -23,7 +24,7 @@ export const useDashboard = () => {
     } catch (err) {
       setErrorScreen("Falha ao buscar admissões, tente novamente!");
     } finally {
-      setLoadingScreen(false);
+      setTimeout(() => setLoadingScreen(false), 800);
     }
   }, []);
 
@@ -32,12 +33,9 @@ export const useDashboard = () => {
       setErrorRegistrations("");
       setLoadingRegistrations(true);
       try {
-        const response = await updateStatus(item, newStatus);
-        setDataRegistrations((prevState) =>
-          prevState.map((itemList) =>
-            itemList.id === item.id ? { ...response } : itemList
-          )
-        );
+        await updateStatus(item, newStatus);
+        const data = await getAllAdmissions();
+        setDataRegistrations(data);
       } catch (err) {
         setErrorRegistrations("Falha ao atualizar o status, tente novamente!");
       } finally {
@@ -46,6 +44,20 @@ export const useDashboard = () => {
     },
     []
   );
+
+  const deleteCard = useCallback(async (item: DataRegistrationsItem) => {
+    setErrorRegistrations("");
+    setLoadingRegistrations(true);
+    try {
+      await deleteAdmission(item);
+      const data = await getAllAdmissions();
+      setDataRegistrations(data);
+    } catch (err) {
+      setErrorRegistrations("Falha ao atualizar o status, tente novamente!");
+    } finally {
+      setLoadingRegistrations(false);
+    }
+  }, []);
 
   useEffect(() => {
     refresh();
@@ -59,5 +71,6 @@ export const useDashboard = () => {
     refresh,
     loadingScreen,
     errorScreen,
+    deleteCard,
   };
 };
