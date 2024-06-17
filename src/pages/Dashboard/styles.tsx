@@ -6,4 +6,9 @@ export const Container = styled.div`
   flex-direction: column;
 `;
 
-
+export const ErrorContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 24px;
+`;

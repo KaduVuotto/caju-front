@@ -5,21 +5,23 @@ import { DataRegistrationsItem } from "~/types/interface";
 import { initialStateRegistration } from "~/utils/initialStateRegistration";
 
 export const useDashboard = () => {
-  const [dataRegistrations, setDataRegistrations] = useState<DataRegistrationsItem[]>(
-    initialStateRegistration
-  );
+  const [dataRegistrations, setDataRegistrations] = useState<
+    DataRegistrationsItem[]
+  >(initialStateRegistration);
   const [loadingRegistrations, setLoadingRegistrations] =
     useState<boolean>(false);
   const [loadingScreen, setLoadingScreen] = useState<boolean>(false);
   const [errorRegistrations, setErrorRegistrations] = useState<string>("");
+  const [errorScreen, setErrorScreen] = useState<string>("");
 
   const refresh = useCallback(async () => {
     setLoadingScreen(true);
+    setErrorScreen("");
     try {
       const data = await getAllAdmissions();
       setDataRegistrations(data);
     } catch (err) {
-      setErrorRegistrations("Falha ao buscar admissões, tente novamente!");
+      setErrorScreen("Falha ao buscar admissões, tente novamente!");
     } finally {
       setLoadingScreen(false);
     }
@@ -27,6 +29,7 @@ export const useDashboard = () => {
 
   const changeStatus = useCallback(
     async (item: DataRegistrationsItem, newStatus: string) => {
+      setErrorRegistrations("");
       setLoadingRegistrations(true);
       try {
         const response = await updateStatus(item, newStatus);
@@ -55,5 +58,6 @@ export const useDashboard = () => {
     changeStatus,
     refresh,
     loadingScreen,
+    errorScreen,
   };
 };
