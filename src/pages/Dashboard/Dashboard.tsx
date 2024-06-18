@@ -22,7 +22,7 @@ export const Dashboard = memo(() => {
     handleCpf,
     cpf,
     errorCpf,
-    searchCPF,
+    searchCpf,
   } = useDashboard();
 
   return (
@@ -36,7 +36,7 @@ export const Dashboard = memo(() => {
             onChange={handleCpf}
           />
           <div />
-          <IconButton aria-label="refetch" disabled={false} onClick={searchCPF}>
+          <IconButton aria-label="refetch" disabled={false} onClick={() => searchCpf(cpf)}>
             <HiSearch />
           </IconButton>
         </Styled.Actions>

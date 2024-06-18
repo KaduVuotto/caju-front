@@ -7,6 +7,7 @@ import { getCpf } from "~/services/getCpf";
 import { updateStatus } from "~/services/updateStatus";
 import { DataRegistrationsItem } from "~/types/interface";
 import { initialStateRegistration } from "~/utils/initialStateRegistration";
+import { validateCpf } from "~/utils/validateCpf";
 
 export const useDashboard = () => {
   const [dataRegistrations, setDataRegistrations] = useState<
@@ -71,27 +72,35 @@ export const useDashboard = () => {
   }, []);
 
   const handleCpf = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCpf(event.target.value);
-    console.log("cpf", cpf);
+    const value = event.target.value;
+    setCpf(value);
+
+    if (value.replace(/\D/g, "").length === 11) {
+      searchCpf(value);
+    }
   };
 
-  const searchCPF = useCallback(async () => {
-    setLoadingScreen(true);
+  const searchCpf = useCallback(async (value: string) => {
+    const isValidCPF = validateCpf(value);
     setErrorScreen("");
     setErrorCpf("");
-    try {
-      const data = await getCpf(cpf);
-      console.log("data", data);
-      if (data.length === 0) {
-        setErrorCpf("CPF não encontrado!");
-      } else {
-        setDataRegistrations(data);
+
+    if (isValidCPF) {
+      setLoadingScreen(true);
+      try {
+        const data = await getCpf(value);
+        if (data.length === 0) {
+          setErrorCpf("CPF não encontrado!");
+        } else {
+          setDataRegistrations(data);
+        }
+      } catch (err) {
+        setErrorCpf("Falha ao buscar CPF, tente novamente!");
+      } finally {
+        setTimeout(() => setLoadingScreen(false), 800);
       }
-      console.log("dataRegistrations", dataRegistrations);
-    } catch (err) {
-      setErrorCpf("Falha ao buscar CPF, tente novamente!");
-    } finally {
-      setTimeout(() => setLoadingScreen(false), 800);
+    } else {
+      setErrorCpf("Informe um CPF válido!");
     }
   }, []);
 
@@ -114,6 +123,6 @@ export const useDashboard = () => {
     handleCpf,
     cpf,
     errorCpf,
-    searchCPF,
+    searchCpf,
   };
 };
