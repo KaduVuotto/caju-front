@@ -1,7 +1,7 @@
 import { HashRouter, Redirect, Route, Switch } from "react-router-dom";
 import routes from "./routes";
 import { Dashboard } from "~/pages/Dashboard/Dashboard";
-import { NewUser } from "~/pages/NewUser/NewUser";
+import { NewAdmission } from "~/pages/NewAdmission/NewAdmission";
 import * as Styled from "./styles";
 
 export const Router = () => {
@@ -10,7 +10,7 @@ export const Router = () => {
       <HashRouter>
         <Switch>
           <Route exact path={routes.dashboard} component={Dashboard} />
-          <Route exact path={routes.newUser} component={NewUser} />
+          <Route exact path={routes.newAdmission} component={NewAdmission} />
           <Route
             exact
             path={routes.history}

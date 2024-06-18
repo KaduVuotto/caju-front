@@ -24,7 +24,7 @@ export const useDashboard = () => {
   const history = useHistory();
 
   const goToNewAdmissionPage = () => {
-    history.push(routes.newUser);
+    history.push(routes.newAdmission);
   };
 
   const refresh = useCallback(async () => {
