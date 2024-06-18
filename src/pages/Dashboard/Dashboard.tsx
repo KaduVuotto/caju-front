@@ -30,13 +30,18 @@ export const Dashboard = memo(() => {
       <Styled.ContainerSearchAndAdmissions>
         <Styled.Actions>
           <TextField
-            placeholder={"Digite um CPF válido"}
+            cpfMask
+            placeholder={"Digite aqui um CPF"}
             error={errorCpf}
             value={cpf}
             onChange={handleCpf}
           />
           <div />
-          <IconButton aria-label="refetch" disabled={false} onClick={() => searchCpf(cpf)}>
+          <IconButton
+            aria-label="refetch"
+            disabled={false}
+            onClick={() => searchCpf(cpf)}
+          >
             <HiSearch />
           </IconButton>
         </Styled.Actions>

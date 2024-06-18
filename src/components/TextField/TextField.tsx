@@ -7,16 +7,17 @@ type Props = {
   value: string | number | readonly string[] | undefined;
   id?: string;
   label?: string;
+  cpfMask?: boolean;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
 } & InputHTMLAttributes<HTMLInputElement>;
 
 export const TextField = memo(
-  ({ error, value, id, label, onChange, ...props }: Props) => {
+  ({ error, value, id, label, onChange, cpfMask, ...props }: Props) => {
     return (
       <div>
         <label htmlFor={id}>{label}</label>
         <Styled.Input
-          mask="999.999.999-99"
+          mask={cpfMask ? "999.999.999-99" : ""}
           value={value}
           onChange={onChange}
           {...props}
