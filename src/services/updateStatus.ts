@@ -9,7 +9,6 @@ export const updateStatus = async (item: DataRegistrationsItem, newStatus: strin
     });
     return response.data;
   } catch (err) {
-    console.error("Error updating status:", err);
     throw err;
   }
 };

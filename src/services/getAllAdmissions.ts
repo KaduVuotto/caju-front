@@ -5,7 +5,6 @@ export const getAllAdmissions = async () => {
     const response = await api.get("registrations");
     return response.data;
   } catch (err) {
-    console.error("Error get all admissions:", err);
     throw err;
   }
 };
