@@ -1,7 +1,5 @@
+import { ErrorMessage } from "formik";
 import styled from "styled-components";
-import { Button, IconButton } from "~/components/Buttons/styles";
-
-
 
 export const Container = styled.div`
   display: flex;
@@ -18,13 +16,27 @@ export const Card = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
- 
-  ${IconButton} {
-    margin-bottom: 8px;
-    align-items: flex-start;
-  }
+`;
 
-  ${Button}{
-    align-self: flex-end;
-  }
+export const Error = styled(ErrorMessage)`
+  margin-top: 8px;
+  color: red;
+`;
+
+export const Divisor = styled.div`
+  height: 18px;
+`;
+
+export const ErrorContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 24px;
+`;
+
+export const ProgressContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 24px;
 `;

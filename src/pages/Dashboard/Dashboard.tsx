@@ -54,7 +54,7 @@ export const Dashboard = memo(() => {
       </Styled.ContainerSearchAndAdmissions>
       {errorScreen ? (
         <Styled.ErrorContainer>
-          <Typography variant="body1">{errorScreen}</Typography>
+          <Typography variant="body1" color="red">{errorScreen}</Typography>
         </Styled.ErrorContainer>
       ) : (
         <Columns

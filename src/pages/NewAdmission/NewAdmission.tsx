@@ -1,55 +1,105 @@
 import { IconButton } from "~/components/Buttons/IconButton";
 import * as Styled from "./styles";
-import { useHistory } from "react-router-dom";
-import routes from "~/router/routes";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 import { TextField } from "~/components/TextField/TextField";
 import { Button } from "~/components/Buttons/Button";
-import { ChangeEvent, memo } from "react";
+import { memo } from "react";
+import { useNewAdmission } from "~/hooks/useNewAdmission";
+import { Formik, Form } from "formik";
+import { validationSchemaNewAdmission } from "~/utils/validationSchemaNewAdmission";
+import { CircularProgress, Typography } from "@mui/material";
 
 export const NewAdmission = memo(() => {
-  const history = useHistory();
-
-  const goToHome = () => {
-    history.push(routes.dashboard);
-  };
+  const { goToHome, handleSubmit, errorScreen, loadingScreen } =
+    useNewAdmission();
 
   return (
     <Styled.Container>
       <Styled.Card>
-        <IconButton onClick={() => goToHome()} aria-label="back">
+        <IconButton onClick={goToHome} aria-label="back">
           <HiOutlineArrowLeft size={24} />
         </IconButton>
-        <TextField
-          placeholder="Nome"
-          label="Nome"
-          error={""}
-          value={""}
-          onChange={() => {}}
-        />
-        <TextField
-          placeholder="Email"
-          label="Email"
-          type="email"
-          error={""}
-          value={""}
-          onChange={() => {}}
-        />
-        <TextField
-          placeholder="CPF"
-          label="CPF"
-          error={""}
-          value={""}
-          onChange={() => {}}
-        />
-        <TextField
-          label="Data de admissão"
-          type="date"
-          error={""}
-          value={""}
-          onChange={() => {}}
-        />
-        <Button onClick={() => {}}>Cadastrar</Button>
+        {loadingScreen ? (
+          <Styled.ProgressContainer>
+            <CircularProgress />
+          </Styled.ProgressContainer>
+        ) : (
+          <Formik
+            initialValues={{ name: "", email: "", cpf: "", admissionDate: "" }}
+            validationSchema={validationSchemaNewAdmission}
+            onSubmit={(values) => {
+              if (values.cpf.replace(/\D/g, "").length === 11) {
+                handleSubmit(values);
+              }
+            }}
+          >
+            {({ values, handleChange, handleBlur }) => (
+              <Form>
+                <TextField
+                  label="Nome"
+                  id="name"
+                  name="name"
+                  type="text"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={""}
+                  value={values.name}
+                />
+                <Styled.Error name="name" component="div" />
+                <Styled.Divisor />
+
+                <TextField
+                  label="Email"
+                  type="email"
+                  id="email"
+                  name="email"
+                  error={""}
+                  value={values.email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+                <Styled.Error name="email" component="div" />
+                <Styled.Divisor />
+
+                <TextField
+                  label="CPF"
+                  type=""
+                  id="cpf"
+                  name="cpf"
+                  cpfMask
+                  error={""}
+                  value={values.cpf}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+                <Styled.Error name="cpf" component="div" />
+                <Styled.Divisor />
+
+                <TextField
+                  label="Data de admissão"
+                  type="date"
+                  error={""}
+                  value={values.admissionDate}
+                  id="admissionDate"
+                  name="admissionDate"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+                <Styled.Error name="admissionDate" component="div" />
+                <Styled.Divisor />
+
+                <Button type="submit">Cadastrar</Button>
+              </Form>
+            )}
+          </Formik>
+        )}
+        {errorScreen && (
+          <Styled.ErrorContainer>
+            <Typography variant="body1" color={"red"}>
+              {errorScreen}
+            </Typography>
+          </Styled.ErrorContainer>
+        )}
       </Styled.Card>
     </Styled.Container>
   );

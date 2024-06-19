@@ -8,7 +8,10 @@ type Props = {
   disabled?: boolean;
   bgcolor?: string;
   color?: string;
-} & React.HTMLAttributes<HTMLButtonElement>;
+} & React.DetailedHTMLProps<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  HTMLButtonElement
+>;
 
 export const Button = memo(
   ({ small, bgcolor, color, loading, disabled, ...props }: Props) => {
@@ -19,7 +22,14 @@ export const Button = memo(
       return <Styled.Button onClick={() => null} {...props} />;
     }
     if (disabled && small) {
-      return <Styled.Button  bgcolor={bgcolor} color={color} onClick={() => null} {...props} />;
+      return (
+        <Styled.Button
+          bgcolor={bgcolor}
+          color={color}
+          onClick={() => null}
+          {...props}
+        />
+      );
     }
     if (small) {
       return <Styled.ButtonSmall bgcolor={bgcolor} color={color} {...props} />;
