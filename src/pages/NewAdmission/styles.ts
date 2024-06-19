@@ -27,13 +27,6 @@ export const Divisor = styled.div`
   height: 18px;
 `;
 
-export const ErrorContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 24px;
-`;
-
 export const ProgressContainer = styled.div`
   display: flex;
   justify-content: center;

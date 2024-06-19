@@ -23,6 +23,22 @@
       "employeeName": "José Leão",
       "status": "REVIEW",
       "cpf": "00644206047"
+    },
+    {
+      "id": "5ea9ba89-fc03-4833-b315-b668beb84386",
+      "cpf": "79276658807",
+      "employeeName": "Francisca Vitória Rodrigues",
+      "admissionDate": "2024/06/18",
+      "email": "francisca_vitoria_rodrigues@jarretta.com",
+      "status": "REVIEW"
+    },
+    {
+      "id": "3735f968-446b-407e-8b2f-238a1f13cbff",
+      "cpf": "03881038922",
+      "employeeName": "Severino Martin dos Santos",
+      "admissionDate": "2024/06/18",
+      "email": "severino_dossantos@effem.com",
+      "status": "REVIEW"
     }
   ]
 }

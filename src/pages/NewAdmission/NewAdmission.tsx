@@ -7,11 +7,12 @@ import { memo } from "react";
 import { useNewAdmission } from "~/hooks/useNewAdmission";
 import { Formik, Form } from "formik";
 import { validationSchemaNewAdmission } from "~/utils/validationSchemaNewAdmission";
-import { CircularProgress, Typography } from "@mui/material";
+import { CircularProgress } from "@mui/material";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const NewAdmission = memo(() => {
-  const { goToHome, handleSubmit, errorScreen, loadingScreen } =
-    useNewAdmission();
+  const { goToHome, handleSubmit, loadingScreen } = useNewAdmission();
 
   return (
     <Styled.Container>
@@ -21,7 +22,7 @@ export const NewAdmission = memo(() => {
         </IconButton>
         {loadingScreen ? (
           <Styled.ProgressContainer>
-            <CircularProgress />
+            <CircularProgress color="success" />
           </Styled.ProgressContainer>
         ) : (
           <Formik
@@ -89,14 +90,8 @@ export const NewAdmission = memo(() => {
             )}
           </Formik>
         )}
-        {errorScreen && (
-          <Styled.ErrorContainer>
-            <Typography variant="body1" color={"red"}>
-              {errorScreen}
-            </Typography>
-          </Styled.ErrorContainer>
-        )}
       </Styled.Card>
+      <ToastContainer />
     </Styled.Container>
   );
 });
