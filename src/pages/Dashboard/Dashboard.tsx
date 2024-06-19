@@ -23,28 +23,34 @@ export const Dashboard = memo(() => {
     cpf,
     errorCpf,
     searchCpf,
+    cpfIsValid,
   } = useDashboard();
 
   return (
     <Styled.Container>
       <Styled.ContainerSearchAndAdmissions>
-        <Styled.Actions>
-          <TextField
-            cpfMask
-            placeholder={"Digite aqui um CPF"}
-            error={errorCpf}
-            value={cpf}
-            onChange={handleCpf}
-          />
-          <div />
-          <IconButton
-            aria-label="refetch"
-            disabled={false}
-            onClick={() => searchCpf(cpf)}
-          >
-            <HiSearch />
-          </IconButton>
-        </Styled.Actions>
+        <div>
+          <Styled.Actions>
+            <TextField
+              cpfMask
+              placeholder={"Digite aqui um CPF"}
+              value={cpf}
+              onChange={handleCpf}
+            />
+
+            <div />
+            <IconButton
+              aria-label="refetch"
+              disabled={!cpfIsValid}
+              onClick={() => searchCpf(cpf)}
+            >
+              <HiSearch />
+            </IconButton>
+          </Styled.Actions>
+          <Typography variant="body1" color="red">
+            {errorCpf}
+          </Typography>
+        </div>
         <Styled.Actions>
           <IconButton aria-label="refetch" onClick={refresh}>
             <HiRefresh />
@@ -54,7 +60,9 @@ export const Dashboard = memo(() => {
       </Styled.ContainerSearchAndAdmissions>
       {errorScreen ? (
         <Styled.ErrorContainer>
-          <Typography variant="body1" color="red">{errorScreen}</Typography>
+          <Typography variant="body1" color="red">
+            {errorScreen}
+          </Typography>
         </Styled.ErrorContainer>
       ) : (
         <Columns

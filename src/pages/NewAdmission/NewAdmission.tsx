@@ -42,7 +42,6 @@ export const NewAdmission = memo(() => {
                   type="text"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  error={""}
                   value={values.name}
                 />
                 <Styled.Error name="name" component="div" />
@@ -53,7 +52,6 @@ export const NewAdmission = memo(() => {
                   type="email"
                   id="email"
                   name="email"
-                  error={""}
                   value={values.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -67,7 +65,6 @@ export const NewAdmission = memo(() => {
                   id="cpf"
                   name="cpf"
                   cpfMask
-                  error={""}
                   value={values.cpf}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -78,7 +75,6 @@ export const NewAdmission = memo(() => {
                 <TextField
                   label="Data de admissão"
                   type="date"
-                  error={""}
                   value={values.admissionDate}
                   id="admissionDate"
                   name="admissionDate"

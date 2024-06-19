@@ -9,14 +9,10 @@ type Props = {
 export const IconButton = memo(({ children, disabled, ...props }: Props) => {
   if (disabled) {
     return (
-      <Styled.IconButton disabled={disabled} onClick={() => null} {...props}>
+      <Styled.IconButton disabled={disabled} {...props}>
         {children}
       </Styled.IconButton>
     );
   }
-  return (
-    <Styled.IconButton {...props}>
-      {children}
-    </Styled.IconButton>
-  );
+  return <Styled.IconButton {...props}>{children}</Styled.IconButton>;
 });

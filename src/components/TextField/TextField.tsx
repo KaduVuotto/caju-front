@@ -3,7 +3,7 @@ import * as Styled from "./styles";
 import { memo } from "react";
 
 type Props = {
-  error: string;
+  error?: string;
   value: string | number | readonly string[] | undefined;
   id?: string;
   label?: string;

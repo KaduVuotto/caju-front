@@ -27,6 +27,8 @@ export const useDashboard = () => {
     history.push(routes.newAdmission);
   };
 
+  const cpfIsValid = cpf.replace(/\D/g, "").length === 11;
+
   const refresh = useCallback(async () => {
     setLoadingScreen(true);
     setErrorScreen("");
@@ -74,7 +76,6 @@ export const useDashboard = () => {
   const handleCpf = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setCpf(value);
-
     if (value.replace(/\D/g, "").length === 11) {
       searchCpf(value);
     }
@@ -124,5 +125,6 @@ export const useDashboard = () => {
     cpf,
     errorCpf,
     searchCpf,
+    cpfIsValid,
   };
 };
