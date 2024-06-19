@@ -7,6 +7,7 @@ import { TextField } from "~/components/TextField/TextField";
 import { IconButton } from "~/components/Buttons/IconButton";
 import { HiRefresh, HiSearch } from "react-icons/hi";
 import { Button } from "~/components/Buttons/Button";
+import { ToastContainer } from "react-toastify";
 
 export const Dashboard = memo(() => {
   const {
@@ -15,7 +16,6 @@ export const Dashboard = memo(() => {
     loadingRegistrations,
     errorRegistrations,
     loadingScreen,
-    errorScreen,
     deleteCard,
     goToNewAdmissionPage,
     refresh,
@@ -58,22 +58,15 @@ export const Dashboard = memo(() => {
           <Button onClick={goToNewAdmissionPage}>Nova Admissão</Button>
         </Styled.Actions>
       </Styled.ContainerSearchAndAdmissions>
-      {errorScreen ? (
-        <Styled.ErrorContainer>
-          <Typography variant="body1" color="red">
-            {errorScreen}
-          </Typography>
-        </Styled.ErrorContainer>
-      ) : (
-        <Columns
-          registrations={dataRegistrations}
-          changeStatus={changeStatus}
-          loadingRegistrations={loadingRegistrations}
-          loadingScreen={loadingScreen}
-          errorRegistrations={errorRegistrations}
-          deleteCard={deleteCard}
-        />
-      )}
+      <Columns
+        registrations={dataRegistrations}
+        changeStatus={changeStatus}
+        loadingRegistrations={loadingRegistrations}
+        loadingScreen={loadingScreen}
+        errorRegistrations={errorRegistrations}
+        deleteCard={deleteCard}
+      />
+      <ToastContainer />
     </Styled.Container>
   );
 });

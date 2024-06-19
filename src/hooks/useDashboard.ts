@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 import routes from "~/router/routes";
 import { deleteAdmission } from "~/services/deleteAdmission";
 import { getAllAdmissions } from "~/services/getAllAdmissions";
@@ -17,7 +18,6 @@ export const useDashboard = () => {
     useState<boolean>(false);
   const [loadingScreen, setLoadingScreen] = useState<boolean>(false);
   const [errorRegistrations, setErrorRegistrations] = useState<string>("");
-  const [errorScreen, setErrorScreen] = useState<string>("");
   const [cpf, setCpf] = useState<string>("");
   const [errorCpf, setErrorCpf] = useState<string>("");
 
@@ -31,12 +31,12 @@ export const useDashboard = () => {
 
   const refresh = useCallback(async () => {
     setLoadingScreen(true);
-    setErrorScreen("");
     try {
       const data = await getAllAdmissions();
       setDataRegistrations(data);
+      toast.success("Atualização da página realizada com sucesso!");
     } catch (err) {
-      setErrorScreen("Falha ao buscar admissões, tente novamente!");
+      toast.error("Falha ao buscar admissões, tente novamente!");
     } finally {
       setTimeout(() => setLoadingScreen(false), 800);
     }
@@ -50,8 +50,9 @@ export const useDashboard = () => {
         await updateStatus(item, newStatus);
         const data = await getAllAdmissions();
         setDataRegistrations(data);
+        toast.success("Status alterado com sucesso!");
       } catch (err) {
-        setErrorRegistrations("Falha ao atualizar o status, tente novamente!");
+        toast.error("Falha ao atualizar o status, tente novamente!");
       } finally {
         setTimeout(() => setLoadingRegistrations(false), 800);
       }
@@ -60,14 +61,14 @@ export const useDashboard = () => {
   );
 
   const deleteCard = useCallback(async (item: DataRegistrationsItem) => {
-    setErrorRegistrations("");
     setLoadingRegistrations(true);
     try {
       await deleteAdmission(item);
       const data = await getAllAdmissions();
       setDataRegistrations(data);
+      toast.success("Registro excluído alterado com sucesso!");
     } catch (err) {
-      setErrorRegistrations("Falha ao atualizar o status, tente novamente!");
+      toast.error("Falha ao excluir o registro, tente novamente!");
     } finally {
       setTimeout(() => setLoadingRegistrations(false), 800);
     }
@@ -83,7 +84,6 @@ export const useDashboard = () => {
 
   const searchCpf = useCallback(async (value: string) => {
     const isValidCPF = validateCpf(value);
-    setErrorScreen("");
     setErrorCpf("");
 
     if (isValidCPF) {
@@ -91,12 +91,13 @@ export const useDashboard = () => {
       try {
         const data = await getCpf(value);
         if (data.length === 0) {
-          setErrorCpf("CPF não encontrado!");
+          toast.error("CPF não encontrado!");
         } else {
           setDataRegistrations(data);
+          toast.success("Busca realizada!");
         }
       } catch (err) {
-        setErrorCpf("Falha ao buscar CPF, tente novamente!");
+        toast.error("Falha ao buscar CPF, tente novamente!");
       } finally {
         setTimeout(() => setLoadingScreen(false), 800);
       }
@@ -118,7 +119,6 @@ export const useDashboard = () => {
     changeStatus,
     refresh,
     loadingScreen,
-    errorScreen,
     deleteCard,
     goToNewAdmissionPage,
     handleCpf,
