@@ -3,7 +3,7 @@ import { api } from "./axios";
 
 export const updateStatus = async (item: DataRegistrationsItem, newStatus: string) => {
   try {
-    const response = await api.put(`/registrations/${item.id}`, {
+    const response = await api.put<DataRegistrationsItem>(`/registrations/${item.id}`, {
       ...item,
       status: newStatus,
     });

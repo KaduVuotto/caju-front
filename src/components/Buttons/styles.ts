@@ -36,7 +36,7 @@ export const Button = styled.button<{
 `;
 
 export const ButtonSmall = styled.button<{
-  bgcolor?: string;
+  bgColor?: string;
   color?: string;
 }>`
   font-size: 12px;
@@ -45,7 +45,7 @@ export const ButtonSmall = styled.button<{
   border: none;
   padding: 4px 16px;
   background-color: ${(props) =>
-    props.disabled ? "gray" : props.bgcolor ?? "none"};
+    props.disabled ? "gray" : props.bgColor ?? "none"};
   color: ${(props) => (props.disabled ? "gray" : props.color ?? "#000")};
   cursor: pointer;
 `;

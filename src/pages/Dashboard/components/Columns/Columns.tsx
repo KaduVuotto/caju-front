@@ -6,9 +6,9 @@ import { initialStateRegistration } from "~/utils/initialStateRegistration";
 import { DialogFrom, RegistrationStatus } from "~/types/emuns";
 
 const allColumns = [
-  { status: "REVIEW", title: "Pronto para revisar" },
-  { status: "APPROVED", title: "Aprovado" },
-  { status: "REPROVED", title: "Reprovado" },
+  { status: RegistrationStatus.REVIEW, title: "Pronto para revisar" },
+  { status: RegistrationStatus.APPROVED, title: "Aprovado" },
+  { status: RegistrationStatus.REPROVED, title: "Reprovado" },
 ];
 
 type Props = {

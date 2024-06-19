@@ -73,7 +73,7 @@ export const RegistrationCard = memo(
         <Styled.Actions>
           {item.status !== RegistrationStatus.REVIEW && (
             <Button
-              bgcolor="#ff8858"
+              bgColor="#ff8858"
               onClick={() =>
                 handleOpenDialog(
                   DialogFrom.STATUS,
@@ -88,7 +88,7 @@ export const RegistrationCard = memo(
           )}
           {item.status !== RegistrationStatus.APPROVED && (
             <Button
-              bgcolor="rgb(155, 229, 155)"
+              bgColor="rgb(155, 229, 155)"
               onClick={() =>
                 handleOpenDialog(
                   DialogFrom.STATUS,
@@ -103,7 +103,7 @@ export const RegistrationCard = memo(
           )}
           {item.status !== RegistrationStatus.REPROVED && (
             <Button
-              bgcolor="rgb(255, 145, 154)"
+              bgColor="rgb(255, 145, 154)"
               onClick={() =>
                 handleOpenDialog(
                   DialogFrom.STATUS,
@@ -117,7 +117,7 @@ export const RegistrationCard = memo(
             </Button>
           )}
           <Button
-            bgcolor="rgb(255, 145, 154)"
+            bgColor="rgb(255, 145, 154)"
             onClick={() => handleOpenDialog(DialogFrom.DELETE, item)}
             small
           >

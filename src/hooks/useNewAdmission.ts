@@ -7,6 +7,7 @@ import { getCpf } from "~/services/getCpf";
 import { toast } from "react-toastify";
 import { FormNewAdmission } from "~/types/interface";
 import { initialStateForm } from "~/utils/initialStateForm";
+import { RegistrationStatus } from "~/types/emuns";
 
 export const useNewAdmission = () => {
   const [loadingScreen, setLoadingScreen] = useState<boolean>(false);
@@ -46,7 +47,7 @@ export const useNewAdmission = () => {
           employeeName: values.name,
           admissionDate: formattedAdmissionDate,
           email: values.email,
-          status: "REVIEW",
+          status: RegistrationStatus.REVIEW,
           id: uuidv4(),
         });
         setTimeout(() => {

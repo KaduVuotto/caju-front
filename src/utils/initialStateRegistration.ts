@@ -1,3 +1,4 @@
+import { RegistrationStatus } from "~/types/emuns";
 import { DataRegistrationsItem } from "~/types/interface";
 
 export const initialStateRegistration: DataRegistrationsItem[] = [
@@ -5,7 +6,7 @@ export const initialStateRegistration: DataRegistrationsItem[] = [
     admissionDate: "",
     email: "",
     employeeName: "",
-    status: "REVIEW",
+    status: RegistrationStatus.REVIEW,
     cpf: "",
     id: "",
   },
@@ -13,7 +14,7 @@ export const initialStateRegistration: DataRegistrationsItem[] = [
     admissionDate: "",
     email: "",
     employeeName: "",
-    status: "APPROVED",
+    status: RegistrationStatus.APPROVED,
     cpf: "",
     id: "",
   },
@@ -21,7 +22,7 @@ export const initialStateRegistration: DataRegistrationsItem[] = [
     admissionDate: "",
     email: "",
     employeeName: "",
-    status: "REPROVED",
+    status: RegistrationStatus.REPROVED,
     cpf: "",
     id: "",
   },
@@ -29,7 +30,7 @@ export const initialStateRegistration: DataRegistrationsItem[] = [
     admissionDate: "",
     email: "",
     employeeName: "",
-    status: "REVIEW",
+    status: RegistrationStatus.REVIEW,
     cpf: "",
     id: "",
   },
@@ -37,7 +38,7 @@ export const initialStateRegistration: DataRegistrationsItem[] = [
     admissionDate: "",
     email: "",
     employeeName: "",
-    status: "APPROVED",
+    status: RegistrationStatus.APPROVED,
     cpf: "",
     id: "",
   },
@@ -45,7 +46,7 @@ export const initialStateRegistration: DataRegistrationsItem[] = [
     admissionDate: "",
     email: "",
     employeeName: "",
-    status: "REPROVED",
+    status: RegistrationStatus.REPROVED,
     cpf: "",
     id: "",
   },

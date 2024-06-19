@@ -1,10 +1,10 @@
-import { Status } from "./types";
+import { RegistrationStatus } from "./emuns";
 
 export interface DataRegistrationsItem {
   admissionDate: string;
   email: string;
   employeeName: string;
-  status: Status;
+  status: RegistrationStatus;
   cpf: string;
   id: string;
 }

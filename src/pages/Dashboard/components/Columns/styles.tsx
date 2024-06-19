@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Status } from "~/types/types";
+import { RegistrationStatus } from "~/types/emuns";
 const registrationStatusStyles: {
   [key in string]: { background: string; title: string };
 } = {
@@ -25,7 +25,7 @@ export const Container = styled.div`
   margin-top: 24px;
 `;
 
-export const Column = styled.div<{ status: Status }>`
+export const Column = styled.div<{ status: RegistrationStatus }>`
   height: auto;
   background-color: ${({ status }) =>
     registrationStatusStyles[status].background ?? "none"};
@@ -34,7 +34,7 @@ export const Column = styled.div<{ status: Status }>`
   max-height: 80vh;
 `;
 
-export const TitleColumn = styled.h3<{ status: Status }>`
+export const TitleColumn = styled.h3<{ status: RegistrationStatus }>`
   margin: 0px;
   color: ${({ status }) => registrationStatusStyles[status].title ?? "#000"};
   margin: 24px;

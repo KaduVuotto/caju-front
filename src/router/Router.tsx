@@ -11,11 +11,6 @@ export const Router = () => {
         <Switch>
           <Route exact path={routes.dashboard} component={Dashboard} />
           <Route exact path={routes.newAdmission} component={NewAdmission} />
-          <Route
-            exact
-            path={routes.history}
-            component={() => <div>History</div>}
-          />
 
           <Route exact path="*">
             <Redirect to={routes.dashboard} />
