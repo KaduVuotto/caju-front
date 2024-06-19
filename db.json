@@ -39,6 +39,14 @@
       "admissionDate": "2024/06/18",
       "email": "severino_dossantos@effem.com",
       "status": "REVIEW"
+    },
+    {
+      "id": "8f375be0-0aa4-4113-9862-a84ddf16eea8",
+      "cpf": "20046077260",
+      "employeeName": "Emanuel Jorge da Mata",
+      "admissionDate": "2024/06/18",
+      "email": "emanuel_damata@oana.com.br",
+      "status": "REVIEW"
     }
   ]
 }

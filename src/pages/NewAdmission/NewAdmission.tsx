@@ -7,12 +7,26 @@ import { memo } from "react";
 import { useNewAdmission } from "~/hooks/useNewAdmission";
 import { Formik, Form } from "formik";
 import { validationSchemaNewAdmission } from "~/utils/validationSchemaNewAdmission";
-import { CircularProgress } from "@mui/material";
+import {
+  CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export const NewAdmission = memo(() => {
-  const { goToHome, handleSubmit, loadingScreen } = useNewAdmission();
+  const {
+    goToHome,
+    handleClickOpen,
+    handleClose,
+    handleConfirm,
+    loadingScreen,
+    openDialog,
+  } = useNewAdmission();
 
   return (
     <Styled.Container>
@@ -30,7 +44,7 @@ export const NewAdmission = memo(() => {
             validationSchema={validationSchemaNewAdmission}
             onSubmit={(values) => {
               if (values.cpf.replace(/\D/g, "").length === 11) {
-                handleSubmit(values);
+                handleClickOpen(values);
               }
             }}
           >
@@ -92,6 +106,25 @@ export const NewAdmission = memo(() => {
         )}
       </Styled.Card>
       <ToastContainer />
+      <Dialog
+        open={openDialog}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">Atenção</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Tem certeza que deseja realizar o cadastro?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancelar</Button>
+          <Button onClick={handleConfirm} autoFocus>
+            Confirmar
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Styled.Container>
   );
 });

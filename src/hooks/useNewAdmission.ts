@@ -5,9 +5,13 @@ import { postNewAdmission } from "~/services/postNewAdmission";
 import { v4 as uuidv4 } from "uuid";
 import { getCpf } from "~/services/getCpf";
 import { toast } from "react-toastify";
+import { FormNewAdmission } from "~/types/interface";
+import { initialStateForm } from "~/utils/initialStateForm";
 
 export const useNewAdmission = () => {
   const [loadingScreen, setLoadingScreen] = useState<boolean>(false);
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
+  const [form, setForm] = useState<FormNewAdmission>(initialStateForm);
 
   const history = useHistory();
 
@@ -15,12 +19,21 @@ export const useNewAdmission = () => {
     history.push(routes.dashboard);
   };
 
-  const handleSubmit = async (values: {
-    name: string;
-    email: string;
-    cpf: string;
-    admissionDate: string;
-  }) => {
+  const handleClickOpen = (values: FormNewAdmission) => {
+    setOpenDialog(true);
+    setForm(values);
+  };
+
+  const handleClose = () => {
+    setOpenDialog(false);
+  };
+
+  const handleConfirm = () => {
+    handleClose();
+    handleSubmit(form);
+  };
+
+  const handleSubmit = async (values: FormNewAdmission) => {
     const formattedCpf = values.cpf.replace(/\D/g, "");
     const formattedAdmissionDate = values.admissionDate.replace(/-/g, "/");
     setLoadingScreen(true);
@@ -39,6 +52,7 @@ export const useNewAdmission = () => {
         setTimeout(() => {
           setLoadingScreen(false);
           goToHome();
+          setForm(initialStateForm);
         }, 1200);
         toast.success("Cadastro realizado com sucesso!");
       } else {
@@ -59,7 +73,10 @@ export const useNewAdmission = () => {
 
   return {
     goToHome,
-    handleSubmit,
+    handleClickOpen,
+    handleClose,
+    handleConfirm,
     loadingScreen,
+    openDialog,
   };
 };
