@@ -6,28 +6,27 @@ import {
   HiOutlineCalendar,
 } from "react-icons/hi";
 import { DataRegistrationsItem } from "~/types/interface";
-import { RegistrationStatus } from "~/types/emuns";
+import { DialogFrom, RegistrationStatus } from "~/types/emuns";
 import { memo } from "react";
 import { Skeleton, Typography } from "@mui/material";
 
 type Props = {
-  item: DataRegistrationsItem;
-  changeStatus: (
-    item: DataRegistrationsItem,
-    newStatus: string
-  ) => Promise<void>;
-  loadingRegistrations: boolean;
   errorRegistrations: string;
-  deleteCard: (item: DataRegistrationsItem) => Promise<void>;
+  handleOpenDialog: (
+    from: DialogFrom,
+    item: DataRegistrationsItem,
+    newStatus?: RegistrationStatus
+  ) => void;
+  item: DataRegistrationsItem;
+  loadingRegistrations: boolean;
 };
 
 export const RegistrationCard = memo(
   ({
-    item,
-    changeStatus,
     errorRegistrations,
+    handleOpenDialog,
+    item,
     loadingRegistrations,
-    deleteCard,
   }: Props) => {
     if (loadingRegistrations || item.id === "") {
       return (
@@ -74,43 +73,61 @@ export const RegistrationCard = memo(
         <Styled.Actions>
           {item.status !== RegistrationStatus.REVIEW && (
             <Button
-              onClick={() => {
-                changeStatus(item, RegistrationStatus.REVIEW);
-              }}
-              small
               bgcolor="#ff8858"
+              onClick={() =>
+                handleOpenDialog(
+                  DialogFrom.STATUS,
+                  item,
+                  RegistrationStatus.REVIEW
+                )
+              }
+              small
             >
               Revisar novamente
             </Button>
           )}
           {item.status !== RegistrationStatus.APPROVED && (
             <Button
-              onClick={() => changeStatus(item, RegistrationStatus.APPROVED)}
-              small
               bgcolor="rgb(155, 229, 155)"
+              onClick={() =>
+                handleOpenDialog(
+                  DialogFrom.STATUS,
+                  item,
+                  RegistrationStatus.APPROVED
+                )
+              }
+              small
             >
               Aprovar
             </Button>
           )}
           {item.status !== RegistrationStatus.REPROVED && (
             <Button
-              onClick={() => changeStatus(item, RegistrationStatus.REPROVED)}
-              small
               bgcolor="rgb(255, 145, 154)"
+              onClick={() =>
+                handleOpenDialog(
+                  DialogFrom.STATUS,
+                  item,
+                  RegistrationStatus.REPROVED
+                )
+              }
+              small
             >
               Reprovar
             </Button>
           )}
           <Button
-            onClick={() => deleteCard(item)}
-            small
             bgcolor="rgb(255, 145, 154)"
+            onClick={() => handleOpenDialog(DialogFrom.DELETE, item)}
+            small
           >
             Excluir
           </Button>
         </Styled.Actions>
         {errorRegistrations && (
-          <Typography variant="body1" color={"red"}>{errorRegistrations}</Typography>
+          <Typography variant="body1" color={"red"}>
+            {errorRegistrations}
+          </Typography>
         )}
       </Styled.Card>
     );

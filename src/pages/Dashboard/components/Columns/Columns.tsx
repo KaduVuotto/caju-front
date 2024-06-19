@@ -3,6 +3,7 @@ import { RegistrationCard } from "../RegistrationCard/RegistrationCard";
 import { DataRegistrationsItem } from "~/types/interface";
 import { memo } from "react";
 import { initialStateRegistration } from "~/utils/initialStateRegistration";
+import { DialogFrom, RegistrationStatus } from "~/types/emuns";
 
 const allColumns = [
   { status: "REVIEW", title: "Pronto para revisar" },
@@ -11,25 +12,24 @@ const allColumns = [
 ];
 
 type Props = {
-  registrations: DataRegistrationsItem[];
-  changeStatus: (
+  errorRegistrations: string;
+  handleOpenDialog: (
+    from: DialogFrom,
     item: DataRegistrationsItem,
-    newStatus: string
-  ) => Promise<void>;
+    newStatus?: RegistrationStatus
+  ) => void;
   loadingRegistrations: boolean;
   loadingScreen: boolean;
-  errorRegistrations: string;
-  deleteCard: (item: DataRegistrationsItem) => Promise<void>;
+  registrations: DataRegistrationsItem[];
 };
 
 export const Columns = memo(
   ({
-    registrations,
-    changeStatus,
     errorRegistrations,
+    handleOpenDialog,
     loadingRegistrations,
     loadingScreen,
-    deleteCard,
+    registrations,
   }: Props) => {
     return (
       <Styled.Container>
@@ -48,12 +48,13 @@ export const Columns = memo(
                     if (collum.status === registration.status) {
                       return (
                         <RegistrationCard
+                          errorRegistrations={errorRegistrations}
+                          handleOpenDialog={handleOpenDialog}
                           item={registration}
                           key={index}
-                          changeStatus={changeStatus}
-                          deleteCard={deleteCard}
-                          errorRegistrations={errorRegistrations}
-                          loadingRegistrations={loadingRegistrations || loadingScreen}
+                          loadingRegistrations={
+                            loadingRegistrations || loadingScreen
+                          }
                         />
                       );
                     }

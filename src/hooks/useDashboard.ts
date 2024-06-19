@@ -6,20 +6,34 @@ import { deleteAdmission } from "~/services/deleteAdmission";
 import { getAllAdmissions } from "~/services/getAllAdmissions";
 import { getCpf } from "~/services/getCpf";
 import { updateStatus } from "~/services/updateStatus";
+import { DialogFrom, RegistrationStatus } from "~/types/emuns";
 import { DataRegistrationsItem } from "~/types/interface";
 import { initialStateRegistration } from "~/utils/initialStateRegistration";
 import { validateCpf } from "~/utils/validateCpf";
 
 export const useDashboard = () => {
+  const [loadingScreen, setLoadingScreen] = useState<boolean>(false);
+
   const [dataRegistrations, setDataRegistrations] = useState<
     DataRegistrationsItem[]
   >(initialStateRegistration);
   const [loadingRegistrations, setLoadingRegistrations] =
     useState<boolean>(false);
-  const [loadingScreen, setLoadingScreen] = useState<boolean>(false);
   const [errorRegistrations, setErrorRegistrations] = useState<string>("");
+
   const [cpf, setCpf] = useState<string>("");
   const [errorCpf, setErrorCpf] = useState<string>("");
+
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
+  const [textDialog, setTextDialog] = useState<string>("");
+
+  const [cardRegistration, setCardRegistration] =
+    useState<DataRegistrationsItem>(initialStateRegistration[0]);
+  const [statusCardRegistration, setStatusCardRegistration] =
+    useState<RegistrationStatus>(RegistrationStatus.REVIEW);
+  const [dialogFrom, setDialogFrom] = useState("");
+
+  const cpfIsValid = cpf.replace(/\D/g, "").length === 11;
 
   const history = useHistory();
 
@@ -27,7 +41,38 @@ export const useDashboard = () => {
     history.push(routes.newAdmission);
   };
 
-  const cpfIsValid = cpf.replace(/\D/g, "").length === 11;
+  const handleCloseDialog = () => {
+    setStatusCardRegistration(RegistrationStatus.REVIEW);
+    setCardRegistration(initialStateRegistration[0]);
+    setDialogFrom("");
+    setOpenDialog(false);
+  };
+
+  const handleOpenDialog = (
+    from: DialogFrom,
+    item: DataRegistrationsItem,
+    newStatus?: RegistrationStatus
+  ) => {
+    if (from === DialogFrom.STATUS) {
+      setTextDialog("Deseja realmente alterar o status do registro?");
+      setDialogFrom(DialogFrom.STATUS);
+    } else {
+      setTextDialog("Deseja realmente excluir o registro?");
+      setDialogFrom(DialogFrom.DELETE);
+    }
+    newStatus && setStatusCardRegistration(newStatus);
+    setCardRegistration(item);
+    setOpenDialog(true);
+  };
+
+  const handleConfirmButton = () => {
+    if (dialogFrom === DialogFrom.STATUS) {
+      changeStatus(cardRegistration, statusCardRegistration);
+    } else {
+      deleteCard(cardRegistration);
+    }
+    handleCloseDialog();
+  };
 
   const refresh = useCallback(async () => {
     setLoadingScreen(true);
@@ -43,7 +88,7 @@ export const useDashboard = () => {
   }, []);
 
   const changeStatus = useCallback(
-    async (item: DataRegistrationsItem, newStatus: string) => {
+    async (item: DataRegistrationsItem, newStatus: RegistrationStatus) => {
       setErrorRegistrations("");
       setLoadingRegistrations(true);
       try {
@@ -113,18 +158,21 @@ export const useDashboard = () => {
   useEffect(() => {}, [dataRegistrations]);
 
   return {
-    dataRegistrations,
-    loadingRegistrations,
-    errorRegistrations,
-    changeStatus,
-    refresh,
-    loadingScreen,
-    deleteCard,
-    goToNewAdmissionPage,
-    handleCpf,
     cpf,
-    errorCpf,
-    searchCpf,
     cpfIsValid,
+    dataRegistrations,
+    errorCpf,
+    errorRegistrations,
+    goToNewAdmissionPage,
+    handleCloseDialog,
+    handleConfirmButton,
+    handleCpf,
+    handleOpenDialog,
+    loadingRegistrations,
+    loadingScreen,
+    openDialog,
+    refresh,
+    searchCpf,
+    textDialog,
   };
 };

@@ -2,7 +2,14 @@ import * as Styled from "./styles";
 import { Columns } from "./components/Columns/Columns";
 import { useDashboard } from "~/hooks/useDashboard";
 import { memo } from "react";
-import { Typography } from "@mui/material";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Typography,
+} from "@mui/material";
 import { TextField } from "~/components/TextField/TextField";
 import { IconButton } from "~/components/Buttons/IconButton";
 import { HiRefresh, HiSearch } from "react-icons/hi";
@@ -11,19 +18,22 @@ import { ToastContainer } from "react-toastify";
 
 export const Dashboard = memo(() => {
   const {
-    dataRegistrations,
-    changeStatus,
-    loadingRegistrations,
-    errorRegistrations,
-    loadingScreen,
-    deleteCard,
-    goToNewAdmissionPage,
-    refresh,
-    handleCpf,
     cpf,
-    errorCpf,
-    searchCpf,
     cpfIsValid,
+    dataRegistrations,
+    errorCpf,
+    errorRegistrations,
+    goToNewAdmissionPage,
+    handleCloseDialog,
+    handleConfirmButton,
+    handleCpf,
+    handleOpenDialog,
+    loadingRegistrations,
+    loadingScreen,
+    openDialog,
+    refresh,
+    searchCpf,
+    textDialog,
   } = useDashboard();
 
   return (
@@ -33,9 +43,9 @@ export const Dashboard = memo(() => {
           <Styled.Actions>
             <TextField
               cpfMask
+              onChange={handleCpf}
               placeholder={"Digite aqui um CPF"}
               value={cpf}
-              onChange={handleCpf}
             />
 
             <div />
@@ -59,14 +69,32 @@ export const Dashboard = memo(() => {
         </Styled.Actions>
       </Styled.ContainerSearchAndAdmissions>
       <Columns
-        registrations={dataRegistrations}
-        changeStatus={changeStatus}
+        errorRegistrations={errorRegistrations}
+        handleOpenDialog={handleOpenDialog}
         loadingRegistrations={loadingRegistrations}
         loadingScreen={loadingScreen}
-        errorRegistrations={errorRegistrations}
-        deleteCard={deleteCard}
+        registrations={dataRegistrations}
       />
       <ToastContainer />
+      <Dialog
+        aria-describedby="alert-dialog-description"
+        aria-labelledby="alert-dialog-title"
+        onClose={handleCloseDialog}
+        open={openDialog}
+      >
+        <DialogTitle id="alert-dialog-title">Atenção</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            {textDialog}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog}>Cancelar</Button>
+          <Button onClick={handleConfirmButton} autoFocus>
+            Confirmar
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Styled.Container>
   );
 });
