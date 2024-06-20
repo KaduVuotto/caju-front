@@ -32,17 +32,17 @@ export const RegistrationCard = memo(
       return (
         <Styled.Card>
           <Styled.IconAndText>
-            <Typography variant="h5">
+            <Typography data-testId="skeleton-h5" variant="h5">
               <Skeleton width={"20vw"} />
             </Typography>
           </Styled.IconAndText>
           <Styled.IconAndText>
-            <Typography variant="body1">
+            <Typography data-testId="skeleton-body1" variant="body1">
               <Skeleton width={"20vw"} />
             </Typography>
           </Styled.IconAndText>
           <Styled.IconAndText>
-            <Typography variant="body1">
+            <Typography data-testId="skeleton-body1" variant="body1">
               <Skeleton width={"20vw"} />
             </Typography>
           </Styled.IconAndText>

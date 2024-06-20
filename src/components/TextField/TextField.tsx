@@ -20,6 +20,7 @@ export const TextField = memo(
           mask={cpfMask ? "999.999.999-99" : ""}
           value={value}
           onChange={onChange}
+          data-testId="textfield"
           {...props}
         />
         <Styled.Span>{error}</Styled.Span>

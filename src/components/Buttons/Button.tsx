@@ -16,7 +16,7 @@ type Props = {
 export const Button = memo(
   ({ small, bgColor, color, loading, disabled, ...props }: Props) => {
     if (loading) {
-      return <Skeleton width={"5vw"} height={"5vh"} />;
+      return <Skeleton data-testId="skeleton" width={"5vw"} height={"5vh"} />;
     }
     if (disabled) {
       return <Styled.Button onClick={() => null} {...props} />;
