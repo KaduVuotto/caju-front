@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+#Eslint
+.eslintcache
+
+#Jest
+coverage

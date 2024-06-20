@@ -1,5 +1,5 @@
-import Router from "~/router";
-import { Header } from "./components/Header";
+import { Header } from "./components/Header/Header";
+import { Router } from "./router/Router";
 
 function App() {
   return (

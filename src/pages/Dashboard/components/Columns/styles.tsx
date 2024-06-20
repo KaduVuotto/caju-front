@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { RegistrationStatus } from "~/types/emuns";
 const registrationStatusStyles: {
   [key in string]: { background: string; title: string };
 } = {
@@ -24,18 +25,18 @@ export const Container = styled.div`
   margin-top: 24px;
 `;
 
-export const Column = styled.div<{ status: any }>`
+export const Column = styled.div<{ status: RegistrationStatus }>`
   height: auto;
   background-color: ${({ status }) =>
-    registrationStatusStyles[status].background};
+    registrationStatusStyles[status].background ?? "none"};
   border-radius: 32px;
   min-height: 80vh;
   max-height: 80vh;
 `;
 
-export const TitleColumn = styled.h3<{ status: any }>`
+export const TitleColumn = styled.h3<{ status: RegistrationStatus }>`
   margin: 0px;
-  color: ${({ status }) => registrationStatusStyles[status].title};
+  color: ${({ status }) => registrationStatusStyles[status].title ?? "#000"};
   margin: 24px;
 `;
 
